@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boeing vs Airbus</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            display: flex;
+            width: 80%;
+            height: 80%;
+        }
+        .side {
+            width: 50%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid black;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .boeing {
+            background-color: blue;
+            color: white;
+        }
+        .airbus {
+            background-color: red;
+            color: white;
+        }
+        .plane-list {
+            display: none;
+            width: 100%;
+            height: 100%;
+            overflow-y: auto;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .plane-info {
+            display: none;
+            width: 100%;
+            height: 100%;
+            overflow-y: auto;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .back-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="side boeing" id="boeingSide">
+            <h1>Boeing</h1>
+            <div class="plane-list" id="boeingPlanes">
+                <!-- Boeing planes will be dynamically added here -->
+            </div>
+            <div class="plane-info" id="boeingInfo">
+                <!-- Boeing plane info will be dynamically added here -->
+            </div>
+            <button class="back-button" onclick="showBoeingList()">Back</button>
+        </div>
+        <div class="side airbus" id="airbusSide">
+            <h1>Airbus</h1>
+            <div class="plane-list" id="airbusPlanes">
+                <!-- Airbus planes will be dynamically added here -->
+            </div>
+            <div class="plane-info" id="airbusInfo">
+                <!-- Airbus plane info will be dynamically added here -->
+            </div>
+            <button class="back-button" onclick="showAirbusList()">Back</button>
+        </div>
+    </div>
+
+    <script>
+        // Sample data for Boeing and Airbus planes
+        const boeingPlanes = [
+            { name: 'Boeing 737', info: 'A popular short-haul airliner.' },
+            { name: 'Boeing 747', info: 'A long-haul airliner.' },
+            // Add more Boeing planes as needed
+        ];
+
+        const airbusPlanes = [
+            { name: 'Airbus A320', info: 'A popular short-haul airliner.' },
+            { name: 'Airbus A380', info: 'A long-haul airliner.' },
+            // Add more Airbus planes as needed
+        ];
+
+        function showBoeingList() {
+            document.getElementById('boeingPlanes').style.display = 'block';
+            document.getElementById('boeingInfo').style.display = 'none';
+            document.getElementById('boeingSide').style.backgroundColor = 'blue';
+        }
+
+        function showAirbusList() {
+            document.getElementById('airbusPlanes').style.display = 'block';
+            document.getElementById('airbusInfo').style.display = 'none';
+            document.getElementById('airbusSide').style.backgroundColor = 'red';
+        }
+
+        function showBoeingInfo(planeName) {
+            document.getElementById('boeingInfo').innerHTML = `<h2>${planeName}</h2><p>${boeingPlanes.find(plane => plane.name === planeName).info}</p>`;
+            document.getElementById('boeingInfo').style.display = 'block';
+            document.getElementById('boeingPlanes').style.display = 'none';
+            document.getElementById('boeingSide').style.backgroundColor = 'white';
+        }
+
+        function showAirbusInfo(planeName) {
+            document.getElementById('airbusInfo').innerHTML = `<h2>${planeName}</h2><p>${airbusPlanes.find(plane => plane.name === planeName).info}</p>`;
+            document.getElementById('airbusInfo').style.display = 'block';
+            document.getElementById('airbusPlanes').style.display = 'none';
+            document.getElementById('airbusSide').style.backgroundColor = 'white';
+        }
+
+        // Populate the Boeing and Airbus plane lists
+        boeingPlanes.forEach(plane => {
+            const listItem = document.createElement('div');
+            listItem.innerHTML = `<p onclick="showBoeingInfo('${plane.name}')">${plane.name}</p>`;
+            document.getElementById('boeingPlanes').appendChild(listItem);
+        });
+
+        airbusPlanes.forEach(plane => {
+            const listItem = document.createElement('div');
+            listItem.innerHTML = `<p onclick="showAirbusInfo('${plane.name}')">${plane.name}</p>`;
+            document.getElementById('airbusPlanes').appendChild(listItem);
+        });
+
+        // Initially show the Boeing and Airbus lists
+        showBoeingList();
+        showAirbusList();
+    </script>
+</body>
+</html>
